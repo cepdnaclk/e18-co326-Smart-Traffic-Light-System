@@ -1,0 +1,65 @@
+[
+    {
+        "id": "e5e5ebb2a97847d7",
+        "type": "ui_chart",
+        "z": "682735ef1ed90b16",
+        "name": "",
+        "group": "0e3327f7f553bc5f",
+        "order": 1,
+        "width": "6",
+        "height": "6",
+        "label": "Distance Sensor 2 History",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "900",
+        "removeOlder": 1,
+        "removeOlderPoints": "50",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 490,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0e3327f7f553bc5f",
+        "type": "ui_group",
+        "name": "History",
+        "tab": "a99e37300bca36df",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a99e37300bca36df",
+        "type": "ui_tab",
+        "name": "Smart Traffic Light System",
+        "icon": "Dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
