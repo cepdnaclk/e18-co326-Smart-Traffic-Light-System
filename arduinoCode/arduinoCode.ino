@@ -28,20 +28,28 @@ const int echoPinSensor1 = 18;
 const int trigPinSensor2 = 15;
 const int echoPinSensor2 = 2;
 
+const int trigPinSensor3 = 15;
+const int echoPinSensor3 = 2;
+
 
 //define sound speed in cm/uS
 #define SOUND_SPEED 0.034
 
 // pins for the LEDs
-#define UoP_CO326_Group7_Actuator_LED_RED 32
-#define UoP_CO326_Group7_Actuator_LED_ORANGE 25
-#define UoP_CO326_Group7_Actuator_LED_GREEN 27
+#define UoP_CO326_Group7_Actuator_LED_RED1 32
+#define UoP_CO326_Group7_Actuator_LED_ORANGE1 25
+#define UoP_CO326_Group7_Actuator_LED_GREEN1 27
+
+#define UoP_CO326_Group7_Actuator_LED_RED2 32
+#define UoP_CO326_Group7_Actuator_LED_ORANGE2 25
+#define UoP_CO326_Group7_Actuator_LED_GREEN2 27
 
 // what LED is on right now
 // R - Red
 // O - Orange
 // G - Green
-char currentLED = 'R';
+char currentLED_1 = 'R';
+char currentLED_2 = 'R';
 
 // callback for MQTT
 // This runs when there is a new message from MQTT
@@ -60,18 +68,30 @@ void callback(char* topic, byte* message, unsigned int length) {
 
 
   // if its to change the colour. Change colour
-  if (messageTemp == "Red") {
-    TurnOffAllLEDS();
+  if (messageTemp == "Red1") {
+    TurnOffAllLEDS_1();
 
-    TurnOnRED();
-  } else if (messageTemp == "Orange") {
-    TurnOffAllLEDS();
+    TurnOnRED_1();
+  } else if (messageTemp == "Orange1") {
+    TurnOffAllLEDS_1();
 
-    TurnOnORANGE();
-  } else if (messageTemp == "Green") {
-    TurnOffAllLEDS();
+    TurnOnORANGE_1();
+  } else if (messageTemp == "Green1") {
+    TurnOffAllLEDS_1();
 
-    TurnOnGREEN();
+    TurnOnGREEN_1();
+  }else if (messageTemp == "Red2") {
+    TurnOffAllLEDS_2();
+
+    TurnOnRED_2();
+  }else if (messageTemp == "Orange2") {
+    TurnOffAllLEDS_2();
+
+    TurnOnORANGE_2();
+  }else if (messageTemp == "Green2") {
+    TurnOffAllLEDS_2();
+
+    TurnOnGREEN_2();
   }
 }
 
@@ -135,7 +155,7 @@ float getUltrasonic1Reading() {
   return distanceCm;
 }
 
-// get sensor reading from sensor 1
+// get sensor reading from sensor 2
 // returns a float as the distance in centimeters
 float getUltrasonic2Reading() {
   long duration;
@@ -153,42 +173,97 @@ float getUltrasonic2Reading() {
   return distanceCm;
 }
 
+// get sensor reading from sensor 3
+// returns a float as the distance in centimeters
+float getUltrasonic3Reading() {
+  long duration;
+  float distanceCm;
+  digitalWrite(trigPinSensor3, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPinSensor3, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPinSensor3, LOW);
+  duration = pulseIn(echoPinSensor3, HIGH);
+  distanceCm = duration * SOUND_SPEED / 2;
+  Serial.print("Ultransonic Sensor 2 Distance (cm): ");
+  Serial.println(distanceCm);
+
+  return distanceCm;
+}
+
 // Functions to turn on and off LEDs
-void TurnOnRED() {
-  digitalWrite(UoP_CO326_Group7_Actuator_LED_RED, HIGH);
-  currentLED = 'R';
+void TurnOnRED_1() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_RED1, HIGH);
+  currentLED_1 = 'R';
 }
 
-void TurnOffRED() {
-  digitalWrite(UoP_CO326_Group7_Actuator_LED_RED, LOW);
-  currentLED = 'N';
+void TurnOffRED_1() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_RED1, LOW);
+  currentLED_1 = 'N';
 }
 
-void TurnOnORANGE() {
-  digitalWrite(UoP_CO326_Group7_Actuator_LED_ORANGE, HIGH);
-  currentLED = 'O';
+void TurnOnORANGE_1() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_ORANGE1, HIGH);
+  currentLED_1 = 'O';
 }
 
-void TurnOffORANGE() {
-  digitalWrite(UoP_CO326_Group7_Actuator_LED_ORANGE, LOW);
-  currentLED = 'N';
+void TurnOffORANGE_1() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_ORANGE1, LOW);
+  currentLED_1 = 'N';
 }
 
-void TurnOnGREEN() {
-  digitalWrite(UoP_CO326_Group7_Actuator_LED_GREEN, HIGH);
-  currentLED = 'G';
+void TurnOnGREEN_1() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_GREEN1, HIGH);
+  currentLED_1 = 'G';
 }
 
-void TurnOffGREEN() {
-  digitalWrite(UoP_CO326_Group7_Actuator_LED_GREEN, LOW);
-  currentLED = 'N';
+void TurnOffGREEN_1() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_GREEN1, LOW);
+  currentLED_1 = 'N';
 }
 
-void TurnOffAllLEDS() {
-  TurnOffRED();
-  TurnOffORANGE();
-  TurnOffGREEN();
-  currentLED = 'N';
+void TurnOffAllLEDS_1() {
+  TurnOffRED_1();
+  TurnOffORANGE_1();
+  TurnOffGREEN_1();
+  currentLED_1 = 'N';
+}
+
+void TurnOnRED_2() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_RED2, HIGH);
+  currentLED_2 = 'R';
+}
+
+void TurnOffRED_2() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_RED2, LOW);
+  currentLED_2 = 'N';
+}
+
+void TurnOnORANGE_2() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_ORANGE2, HIGH);
+  currentLED_2 = 'O';
+}
+
+void TurnOffORANGE_2() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_ORANGE2, LOW);
+  currentLED_2 = 'N';
+}
+
+void TurnOnGREEN_2() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_GREEN2, HIGH);
+  currentLED_2 = 'G';
+}
+
+void TurnOffGREEN_2() {
+  digitalWrite(UoP_CO326_Group7_Actuator_LED_GREEN2, LOW);
+  currentLED_2 = 'N';
+}
+
+void TurnOffAllLEDS_2() {
+  TurnOffRED_2();
+  TurnOffORANGE_2();
+  TurnOffGREEN_2();
+  currentLED_2 = 'N';
 }
 
 String getLocalTimeAsString() {
@@ -215,9 +290,13 @@ void setup() {
   pinMode(echoPinSensor2, INPUT);
 
   // set LED pings
-  pinMode(UoP_CO326_Group7_Actuator_LED_RED, OUTPUT);
-  pinMode(UoP_CO326_Group7_Actuator_LED_ORANGE, OUTPUT);
-  pinMode(UoP_CO326_Group7_Actuator_LED_GREEN, OUTPUT);
+  pinMode(UoP_CO326_Group7_Actuator_LED_RED1, OUTPUT);
+  pinMode(UoP_CO326_Group7_Actuator_LED_ORANGE1, OUTPUT);
+  pinMode(UoP_CO326_Group7_Actuator_LED_GREEN1, OUTPUT);
+
+  pinMode(UoP_CO326_Group7_Actuator_LED_RED2, OUTPUT);
+  pinMode(UoP_CO326_Group7_Actuator_LED_ORANGE2, OUTPUT);
+  pinMode(UoP_CO326_Group7_Actuator_LED_GREEN2, OUTPUT);
 
   // connect to wifi
   setup_wifi();
@@ -240,26 +319,23 @@ void loop() {
   // get readings from the sensors
   int sensor1 = getUltrasonic1Reading();
   int sensor2 = getUltrasonic2Reading();
+  int sensor3 = getUltrasonic3Reading();
 
   String dateAndTime = getLocalTimeAsString();
 
   // create the mqtt msg to send
   // String msg = String(currentLED) + "," + String(sensor1) + "," + String(sensor2) + "," + dateAndTime;
-  String msg = "{\"deviceName\" : \"trafficLightsNumber1\" , \
-    \"timeMeasured\" : \"" + dateAndTime + "\", \
-         \"distanceSensor1\" : \""+String(sensor1)+"\", \
-         \"distanceSensor2\" : \""+String(sensor2)+"\", \
-         \"currentColor\" : \"" + String(currentLED) + "\"}";
+  String msg = "{\"deviceName\" : \"trafficLightsNumber1\" , \"timeMeasured\" : \"" + dateAndTime + "\", \"distanceSensor1\" : \"" + String(sensor1) + "\", \"distanceSensor2\" : \"" + String(sensor2) + "\", \"distanceSensor3\" : \"" + String(sensor3) + "\", \"currentColor1\" : \"" + String(currentLED_1) + "\", \"currentColor2\" : \""  + String(currentLED_2) + "\"}";
 
-  char msgCharAray[500] = {};
-msg.toCharArray(msgCharAray, 499);
+  char msgCharAray[750] = {};
+  msg.toCharArray(msgCharAray, 749);
+  Serial.println(msg);
 
 
+  client.publish("group7/sensors", msgCharAray);
 
-client.publish("group7/sensors", msgCharAray);
-
-client.loop();
+  client.loop();
 
 
-delay(1000);
+  delay(1000);
 }

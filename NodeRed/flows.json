@@ -1,6 +1,6 @@
 [
     {
-        "id": "e5e5ebb2a97847d7",
+        "id": "556dd8eb05d702cf",
         "type": "ui_chart",
         "z": "682735ef1ed90b16",
         "name": "",
@@ -8,7 +8,7 @@
         "order": 1,
         "width": "6",
         "height": "6",
-        "label": "Distance Sensor 2 History",
+        "label": "Distance Sensor 3 History",
         "chartType": "line",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -38,7 +38,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 490,
-        "y": 820,
+        "y": 860,
         "wires": [
             []
         ]
